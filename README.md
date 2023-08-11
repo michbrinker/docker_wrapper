@@ -1,8 +1,6 @@
 # DockerWrapper
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/docker_wrapper`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+Simple wrapper for the docker command. Launch new docker instances, read log output, and get information on a currently running instance.
 
 ## Installation
 
@@ -22,7 +20,32 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Create a new docker container.
+```
+  docker = DockerWrapper::Container.new('name', image: 'hello-world')
+```
+
+Alternatively, create a new docker container and pass environment variables and volume mappings as array arguments to the docker container.
+```
+  docker = DockerWrapper::Container.new('name', image: 'hello-world', env: ['LOCAL_DIR'], volume: ['/tmp/test:/test'])
+```
+
+Run the docker container. The `create` and `run` methods accept additional parameters as argument that can be passed on to the docker container during run-time.
+```
+  docker.run('my_parameters')
+```
+
+View the log output. This output is returned as an array.
+```
+  puts docker.logs
+```
+
+Shut down the docker container by using the `rm` method.
+```
+  docker.rm
+```
+
+Additional methods include `inspect` to view the container information, `running?` to get a Boolean result on its current status, and `exec` to execute a given command on the running docker container.
 
 ## Development
 
