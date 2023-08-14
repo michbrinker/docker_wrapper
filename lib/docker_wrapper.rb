@@ -7,6 +7,7 @@ module DockerWrapper
     attr_reader :name
 
     def initialize(name)
+      raise DockerWrapper::Error, "The docker command is not correctly installed. " unless system('docker -v') 
       @name = name
     end
 
@@ -19,6 +20,7 @@ module DockerWrapper
     attr_reader :name, :image, :env, :vol, :opts, :command
 
     def initialize(name, options = {})
+      raise DockerWrapper::Error, "The docker command is not correctly installed. " unless system('docker -v') 
       @name = name
       @image = options.fetch(:image)
       @env = options.fetch(:env, nil)
